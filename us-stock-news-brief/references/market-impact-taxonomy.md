@@ -26,10 +26,36 @@ Use this reference when turning news into market analysis.
 For each high-impact item, answer:
 
 1. What happened?
-2. Why does it matter for earnings, rates, liquidity, regulation, positioning, or sentiment?
-3. Which tickers, ETFs, or sectors are most directly exposed?
-4. Is the market likely reacting to a new fact, a confirmation, or a rumor?
-5. What data or price action would confirm or weaken the thesis?
+2. Is the first-order impact bullish, bearish, neutral, or double-edged?
+3. What is the likely impact horizon: premarket, intraday, this week, or medium term?
+4. Why does it matter for earnings, rates, liquidity, regulation, positioning, or sentiment?
+5. Which tickers, ETFs, or sectors are directly exposed?
+6. Which tickers, ETFs, or sectors are indirectly exposed?
+7. What should be watched in the opposite direction as a hedge, rotation, or confirmation signal?
+8. Is the market likely reacting to a new fact, a confirmation, or a rumor?
+9. What data or price action would confirm or weaken the thesis?
+
+## Direction Labels
+
+- **Bullish / 利好**: Improves earnings expectations, liquidity, risk appetite, policy visibility, or valuation support.
+- **Bearish / 利空**: Pressures margins, rates, growth expectations, regulation, liquidity, or risk appetite.
+- **Neutral / 中性**: Important context but no clear directional edge yet.
+- **Double-edged / 双刃剑**: Benefits one part of the market while hurting another, or helps short term while adding medium-term risk.
+
+## Watchlist Buckets
+
+- **Direct exposure / 直接影响**: Companies, ETFs, or sectors with first-order revenue, cost, valuation, or regulatory exposure.
+- **Indirect exposure / 间接影响**: Related suppliers, customers, peers, factor baskets, or index ETFs.
+- **Opposite watch / 反向关注**: Assets that may move inversely or reveal whether the thesis is working, such as TLT, DXY, VIX, oil, gold, defensives, or cyclicals.
+
+## Pre-Trade Checklist Ideas
+
+- Check whether index futures are aligned with bond yields and the dollar.
+- Check whether leadership is broad or concentrated in a few mega-cap names.
+- Check whether the day's key event occurs before open, during the session, or after close.
+- Check whether important holdings have earnings, FDA, legal, or regulatory event risk.
+- Check whether gaps are supported by volume and news quality or only by headline momentum.
+- Check whether the morning thesis has a clear invalidation signal.
 
 ## Confidence Labels
 

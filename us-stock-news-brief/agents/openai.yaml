@@ -1,0 +1,4 @@
+interface:
+  display_name: "US Stock News Brief"
+  short_description: "Daily market news with investor impact analysis"
+  default_prompt: "Use $us-stock-news-brief to prepare this morning’s US stock market news brief with source links and market impact analysis."

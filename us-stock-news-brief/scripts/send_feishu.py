@@ -146,13 +146,11 @@ def build_card_content(title: str, content: str) -> dict:
 
     for section_title in [
         "市场温度计",
-        "今日三大主线",
-        "重点新闻与影响分析",
-        "公司/财报雷达",
-        "宏观日历",
-        "相关 ETF / 股票观察池",
-        "今日交易前检查清单",
-        "风险与反证",
+        "三条主线",
+        "关键新闻",
+        "今晚/今日关注",
+        "交易前检查",
+        "投资结论",
         "来源",
     ]:
         body = sections.pop(section_title, "")

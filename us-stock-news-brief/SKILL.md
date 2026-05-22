@@ -1,6 +1,6 @@
 ---
 name: us-stock-news-brief
-description: Prepare daily US stock market morning briefs for investors as a pre-trading checklist, including market regime, key themes, headline triage, impact direction, relevant tickers/ETFs, macro events, earnings catalysts, risk checks, and concise investment-risk analysis. Use when the user asks for 美股早报, 美股新闻, daily market news, premarket brief, important news for US stock investors, trading day checklist, or recurring morning market summaries.
+description: Prepare concise daily US stock market briefs for investors as a pre-trading checklist, including market regime, the few key themes that matter, headline triage, impact direction, relevant tickers/ETFs, macro and earnings catalysts, risk checks, and a final analytical investment conclusion. Use when the user asks for 美股早报, 美股新闻, daily market news, premarket brief, important news for US stock investors, trading day checklist, concise Feishu push, or recurring morning/evening market summaries.
 ---
 
 # US Stock News Brief
@@ -39,6 +39,7 @@ Always browse current sources before answering. Market news, prices, calendars, 
    - Keep it skimmable for a morning routine.
    - Prefer bullets and short labels.
    - Include links inline or in a compact source list.
+   - For Feishu/mobile pushes, compress aggressively: target 700-1000 Chinese characters, maximum 4 key news items, no long background paragraphs.
 
 ## Recommended Output
 
@@ -48,29 +49,27 @@ Use `scripts/brief_template.py` to generate a clean structure when useful:
 python3 /path/to/us-stock-news-brief/scripts/brief_template.py --date YYYY-MM-DD --timezone Asia/Shanghai --focus "美股投资者"
 ```
 
-Fill the template with verified, cited information. A strong brief uses this structure:
+Fill the template with verified, cited information. For scheduled Feishu pushes, use this concise structure:
 
-1. **市场温度计**: A 10-second dashboard with `风险偏好`, `主线`, `今日关键变量`, `利率压力`, and `波动风险`.
-2. **今日三大主线**: The three narratives most likely to drive US equities today, each with a one-line market implication.
-3. **重点新闻与影响分析**: 5-8 investor-relevant items. Each item should include:
-   - `事实`: What happened, with a source.
-   - `影响方向`: 利好 / 利空 / 中性 / 双刃剑.
-   - `影响周期`: 盘前 / 日内 / 本周 / 中期.
-   - `为什么重要`: Transmission channel such as rates, earnings, margins, liquidity, regulation, positioning, or sentiment.
-   - `相关标的`: Split into `直接影响`, `间接影响`, and `反向关注` when useful.
-   - `反证/观察点`: What would weaken or confirm the analysis.
-   - `置信度`: High / Medium / Low.
-4. **公司/财报雷达**: Earnings, guidance, analyst day, product launches, regulatory events, and after-hours catalysts for mega-cap, AI, semis, banks, consumer, energy, healthcare, and user watchlist names.
-5. **宏观日历**: Upcoming releases/speeches/events with exact US and local times if available.
-6. **相关 ETF / 股票观察池**: Group tickers into `直接影响`, `间接影响`, and `反向关注` buckets. Include broad ETFs such as SPY, QQQ, IWM, DIA, SMH, XLF, XLE, XLY, XLV, TLT, UUP, GLD when relevant.
-7. **今日交易前检查清单**: 3-6 concrete premarket checks, such as yields, futures breadth, VIX, dollar, oil, earnings gaps, and whether a position has event risk.
-8. **风险与反证**: Explain the top ways the morning thesis could be wrong, plus what data or price action would change the read.
+1. **市场结论**: One sentence summarizing risk appetite, dominant driver, and whether the setup is favorable, neutral, or defensive.
+2. **三条主线**: Exactly 3 bullets. Each bullet should explain one market driver and the affected ETF/tickers.
+3. **关键新闻**: Maximum 4 items. Each item must be one compact line with `事实 + 影响方向 + 相关标的 + 来源`.
+4. **今晚/今日关注**: 2-4 time-sensitive macro, earnings, Fed, or geopolitical events.
+5. **交易前检查**: 3 practical checks. Focus on yields, futures breadth, VIX, dollar, oil, earnings gaps, or event risk.
+6. **投资结论**: Provide a clear analytical conclusion, not just "关注". Include:
+   - `基准判断`: 偏多 / 中性 / 偏谨慎, with one reason.
+   - `更适合`: The kind of exposure or setup that currently has better odds.
+   - `不适合`: The behavior or exposure to avoid.
+   - `反证条件`: What would change the conclusion.
+
+Avoid dumping every source into the main body. Put compact source links at the end when needed.
 
 ## Style Guardrails
 
 - Do not provide personalized financial advice unless the user gives portfolio context and explicitly asks; even then, frame as educational analysis and risk considerations.
 - Do not say "buy", "sell", or "must" as a recommendation. Use "关注", "可能利好/利空", "需要验证", and "适合纳入观察".
 - Prefer "what to watch" and "what would change the read" over direct trading instructions.
+- The final investment conclusion should be directional and useful, but not a personalized order. Say what setup is favored, what should be avoided, and what would invalidate the view.
 - Include a brief "不要做什么" warning when the market setup has obvious behavioral traps, such as chasing before earnings, ignoring rates, or overreacting to unverified headlines.
 - When prices or futures are important, use finance/web tools to verify fresh values and name the timestamp or source.
 - If source access is limited, say what could not be verified and reduce confidence.

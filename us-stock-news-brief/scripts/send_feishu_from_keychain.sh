@@ -2,12 +2,26 @@
 set -euo pipefail
 
 skill_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+repo_dir="$(cd "$skill_dir/.." && pwd)"
 account="us-stock-news-brief"
+env_file="$repo_dir/.env.feishu"
 
-export FEISHU_APP_ID="$(security find-generic-password -a "$account" -s us-stock-news-brief.FEISHU_APP_ID -w)"
-export FEISHU_APP_SECRET="$(security find-generic-password -a "$account" -s us-stock-news-brief.FEISHU_APP_SECRET -w)"
-export FEISHU_RECEIVE_ID="$(security find-generic-password -a "$account" -s us-stock-news-brief.FEISHU_RECEIVE_ID -w)"
-export FEISHU_RECEIVE_ID_TYPE="$(security find-generic-password -a "$account" -s us-stock-news-brief.FEISHU_RECEIVE_ID_TYPE -w)"
+if [[ -f "$env_file" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$env_file"
+  set +a
+fi
+
+read_keychain() {
+  local service="$1"
+  security find-generic-password -a "$account" -s "$service" -w 2>/dev/null || true
+}
+
+export FEISHU_APP_ID="${FEISHU_APP_ID:-$(read_keychain us-stock-news-brief.FEISHU_APP_ID)}"
+export FEISHU_APP_SECRET="${FEISHU_APP_SECRET:-$(read_keychain us-stock-news-brief.FEISHU_APP_SECRET)}"
+export FEISHU_RECEIVE_ID="${FEISHU_RECEIVE_ID:-$(read_keychain us-stock-news-brief.FEISHU_RECEIVE_ID)}"
+export FEISHU_RECEIVE_ID_TYPE="${FEISHU_RECEIVE_ID_TYPE:-$(read_keychain us-stock-news-brief.FEISHU_RECEIVE_ID_TYPE)}"
 
 python3 "$skill_dir/scripts/send_feishu.py" \
   --mode app \

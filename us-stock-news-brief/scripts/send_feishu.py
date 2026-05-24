@@ -39,6 +39,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--app-secret", default=os.environ.get("FEISHU_APP_SECRET"))
     parser.add_argument("--receive-id", default=os.environ.get("FEISHU_RECEIVE_ID"))
     parser.add_argument("--receive-id-type", default=os.environ.get("FEISHU_RECEIVE_ID_TYPE", "chat_id"))
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Validate inputs and print the request payload without sending it.",
+    )
     return parser.parse_args()
 
 
@@ -112,6 +117,11 @@ def send_webhook(webhook_url: str, payload: dict) -> None:
     if parsed.get("code") not in (0, None):
         raise SystemExit(f"Feishu webhook returned error: {json.dumps(parsed, ensure_ascii=False)}")
     print("Sent to Feishu.")
+
+
+def print_dry_run_payload(mode: str, payload: dict) -> None:
+    print(f"Dry run for Feishu {mode} message.")
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
 
 
 def get_tenant_access_token(app_id: str, app_secret: str) -> str:
@@ -259,7 +269,11 @@ def main() -> None:
     if args.mode == "webhook":
         if not args.webhook_url:
             raise SystemExit("Missing FEISHU_WEBHOOK_URL or --webhook-url.")
-        send_webhook(args.webhook_url, build_webhook_payload(args.title, content, args.secret))
+        payload = build_webhook_payload(args.title, content, args.secret)
+        if args.dry_run:
+            print_dry_run_payload("webhook", payload)
+            return
+        send_webhook(args.webhook_url, payload)
         return
 
     if args.receive_id_type.startswith(("oc_", "ou_", "on_")) and not args.receive_id:
@@ -279,6 +293,13 @@ def main() -> None:
     ]
     if missing:
         raise SystemExit(f"Missing required app mode settings: {', '.join(missing)}")
+    if args.dry_run:
+        payload = {
+            "receive_id": args.receive_id,
+            **build_app_message(args.title, content, args.message_format),
+        }
+        print_dry_run_payload("app", payload)
+        return
     send_app(
         args.app_id,
         args.app_secret,
